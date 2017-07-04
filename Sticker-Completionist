@@ -1,0 +1,45 @@
+// ==UserScript==
+// @name         Sticker Completionist
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Открытие наборов стикеров и "заклеивание" стикерами
+// @author       You
+// @match        http://steamcommunity.com/profiles/*/stickers
+// @match        https://steamcommunity.com/profiles/*/stickers
+// @grant        none
+// ==/UserScript==
+
+OAS = function()
+{
+	$J.ajax({		url: g_strProfileURL + '/stickersopen/',		method: 'POST'	}).done( function( data )
+		{
+		        console.log(data.stickerpacks);
+		        if   (data.stickerpacks>0) OAS();
+		        else location.reload();
+	     });
+
+};
+CheckStickers = function()
+{
+	var a=document.getElementsByClassName("item");
+	var s=0;
+	for(var i=0;i<a.length;i++) ( s+= parseInt(a[i].innerText) );
+	if ( s == 112 ) CAST(0);
+};
+CAST = function(x)
+{
+	$J.ajax({
+		url: g_strProfileURL + '/stickerscomplete/',
+		method: 'POST',
+		data: {
+			scene: x
+		}
+	}).done( function() {console.log(x); if (x <14) CAST(++x); else document.location = "http://steamcommunity.com/profiles/"+g_steamID+"/badges/26";}) ;
+};
+(function() {
+    'use strict';
+
+    var ss = document.getElementById("sticker_selector");
+	if ( ss.children[0].children[0].src == "http://steamcommunity-a.akamaihd.net/public/images/promo/summer2017/stickers_group.png" ) OAS();
+	else CheckStickers();
+})();
