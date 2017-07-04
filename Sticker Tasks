@@ -1,0 +1,109 @@
+// ==UserScript==
+// @name         Sticker Tasks
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Выполнение заданий для получения набора стикеров
+// @author       You
+// @match       http://steamcommunity.com/profiles/*/home/
+// @match       https://store.steampowered.com/account/preferences/
+// @match       http://steamcommunity.com/?subsection=broadcasts
+// @match       http://steamcommunity.com/profiles/76561198118894067
+// @match       http://store.steampowered.com//tag/browse
+// @match       http://store.steampowered.com//videos
+// @match       http://steamcommunity.com/profiles/*/screenshots
+// @match       http://steamcommunity.com/profiles/*/edit
+// @match       https://store.steampowered.com/account/preferences?discoveryqueue=1
+// @match       http://store.steampowered.com//explore
+// @grant        none
+// ==/UserScript==
+
+testready = function()
+{
+	if (document.readyState === "complete") { main(); }
+	else setTimeout(testready,500);
+};
+zhel = function()
+{
+	var url = 'http://store.steampowered.com/api/addtowishlist';
+	$J.post( url, {sessionid: g_sessionID, appid: 438740} ).done( kurator());
+};
+kurator = function()
+{
+	$J.post(		'http://store.steampowered.com/curators/ajaxfollow',		{ 'clanid' : 24030085, 'sessionid' : g_sessionID, 'follow' : 1 }).done(	document.location = "http://steamcommunity.com/my/screenshots");
+	console.log("wtf");
+};
+main = function()
+{
+	console.log("ok");
+	
+	if (  (typeof g_steamID !== "undefined")&&( document.URL == "http://steamcommunity.com/profiles/"+g_steamID+"/home/" ) )
+	{
+		if ( document.getElementsByClassName("newmodal").length > 0 )
+		{
+			location.reload();
+		}
+		else document.location = "http://store.steampowered.com/account/preferences/";
+	}
+	if ( document.URL == "https://store.steampowered.com/account/preferences/" )
+	{
+		document.location = "http://steamcommunity.com/?subsection=broadcasts";
+	}
+	if ( document.URL == "http://steamcommunity.com/?subsection=broadcasts" )
+	{
+		document.location = "http://steamcommunity.com/profiles/76561198118894067";
+	}
+	if ( document.URL == "http://steamcommunity.com/profiles/76561198118894067" )
+	{
+		if ( document.getElementsByClassName("newmodal").length > 0 )
+		{
+			location.reload();
+		}
+		else document.location = "http://store.steampowered.com//tag/browse";
+	}
+	if ( document.URL.indexOf("http://store.steampowered.com//tag/browse#global_492")>-1 )
+	{
+		if ( document.getElementsByClassName("newmodal").length > 0 )
+		{
+			location.reload();
+		}
+		else document.location = "http://store.steampowered.com//videos";
+	}
+	if ( document.URL == "http://store.steampowered.com//videos" )
+	{
+		if ( document.getElementsByClassName("newmodal").length > 0 )
+		{
+			location.reload();
+		}
+		else //document.location = "http://steamcommunity.com/my/screenshots";
+		{
+			zhel();
+		}
+	}
+	if ( (typeof g_steamID !== "undefined")&&( document.URL == "http://steamcommunity.com/profiles/"+g_steamID+"/screenshots" ) )
+	{
+		if (document.referrer == "http://store.steampowered.com//videos") location.reload();
+		else document.location = "http://steamcommunity.com/profiles/"+g_steamID+ "/edit";
+	}
+	if ( (typeof g_steamID !== "undefined")&&( document.URL == "http://steamcommunity.com/profiles/"+g_steamID+"/edit" ) )
+	{
+		document.location = "http://store.steampowered.com//account/preferences?discoveryqueue=1";
+	}
+	if ( document.URL == "https://store.steampowered.com/account/preferences?discoveryqueue=1" )
+	{
+		document.location = "http://store.steampowered.com//explore";
+	}
+	if ( document.URL == "http://store.steampowered.com//explore" )
+	{
+		if (document.referrer == "https://store.steampowered.com/account/preferences?discoveryqueue=1") location.reload();
+		else
+		{
+		var str = document.getElementsByClassName("menuitem supernav username")[0].href;
+		document.location = str.slice(0,-6)+"/stickers";
+		}
+	}
+};
+
+(function() {
+    'use strict';
+  	testready();
+})();
