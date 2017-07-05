@@ -51,9 +51,9 @@ main = function()
 	}
 	if ( document.URL == "http://steamcommunity.com/?subsection=broadcasts" )
 	{
-		document.location = "http://steamcommunity.com/profiles/76561198118894067";
+		document.location = friend;
 	}
-	if ( document.URL == "http://steamcommunity.com/profiles/76561198118894067" )
+	if ( document.URL == friend )
 	{
 		if ( document.getElementsByClassName("newmodal").length > 0 )
 		{
