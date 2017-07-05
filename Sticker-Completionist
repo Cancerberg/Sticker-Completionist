@@ -40,6 +40,6 @@ CAST = function(x)
     'use strict';
 
     var ss = document.getElementById("sticker_selector");
-	if ( ss.children[0].children[0].src  !== undefined)>0  ) OAS();
+	if ( ss.children[0].children[0].src  !== undefined) OAS();
 	else CheckStickers();
 })();
