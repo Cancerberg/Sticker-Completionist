@@ -17,6 +17,7 @@
 // @grant        none
 // ==/UserScript==
 
+var friend = "Профиль друга";
 testready = function()
 {
 	if (document.readyState === "complete") { main(); }
