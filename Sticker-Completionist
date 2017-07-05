@@ -40,6 +40,6 @@ CAST = function(x)
     'use strict';
 
     var ss = document.getElementById("sticker_selector");
-	if ( ss.children[0].children[0].src == "http://steamcommunity-a.akamaihd.net/public/images/promo/summer2017/stickers_group.png" ) OAS();
+	if ( ss.children[0].children[0].src.indexOf("promo/summer2017/stickers_group.png")>0  ) OAS();
 	else CheckStickers();
 })();
