@@ -4,8 +4,8 @@
 // @version      0.1
 // @description  Открытие наборов стикеров и "заклеивание" стикерами
 // @author       You
-// @match        http://steamcommunity.com/profiles/*/stickers
-// @match        https://steamcommunity.com/profiles/*/stickers
+// @match        http://steamcommunity.com/*/stickers
+// @match        https://steamcommunity.com/*/stickers
 // @grant        none
 // ==/UserScript==
 
