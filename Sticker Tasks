@@ -4,14 +4,14 @@
 // @version      0.1
 // @description  Выполнение заданий для получения набора стикеров
 // @author       You
-// @match       http://steamcommunity.com/profiles/*/home/
+// @match       http://steamcommunity.com/*/home/
 // @match       https://store.steampowered.com/account/preferences/
 // @match       http://steamcommunity.com/?subsection=broadcasts
-// @match       http://steamcommunity.com/profiles/76561198118894067
+// @match       Профиль друга
 // @match       http://store.steampowered.com//tag/browse
 // @match       http://store.steampowered.com//videos
-// @match       http://steamcommunity.com/profiles/*/screenshots
-// @match       http://steamcommunity.com/profiles/*/edit
+// @match       http://steamcommunity.com/*/screenshots
+// @match       http://steamcommunity.com/*/edit
 // @match       https://store.steampowered.com/account/preferences?discoveryqueue=1
 // @match       http://store.steampowered.com//explore
 // @grant        none
@@ -36,7 +36,7 @@ main = function()
 {
 	console.log("ok");
 	
-	if (  (typeof g_steamID !== "undefined")&&( document.URL == "http://steamcommunity.com/profiles/"+g_steamID+"/home/" ) )
+	if (  (typeof g_steamID !== "undefined")&&( document.URL.indexOf("/home/")>-1 ) )
 	{
 		if ( document.getElementsByClassName("newmodal").length > 0 )
 		{
@@ -79,12 +79,12 @@ main = function()
 			zhel();
 		}
 	}
-	if ( (typeof g_steamID !== "undefined")&&( document.URL == "http://steamcommunity.com/profiles/"+g_steamID+"/screenshots" ) )
+	if ( (typeof g_steamID !== "undefined")&&( document.URL.indexOf("/screenshots")>-1 ) )
 	{
 		if (document.referrer == "http://store.steampowered.com//videos") location.reload();
 		else document.location = "http://steamcommunity.com/profiles/"+g_steamID+ "/edit";
 	}
-	if ( (typeof g_steamID !== "undefined")&&( document.URL == "http://steamcommunity.com/profiles/"+g_steamID+"/edit" ) )
+	if ( (typeof g_steamID !== "undefined")&&( document.URL.indexOf("/edit") >-1 ) )
 	{
 		document.location = "http://store.steampowered.com//account/preferences?discoveryqueue=1";
 	}
